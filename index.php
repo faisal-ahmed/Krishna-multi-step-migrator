@@ -9,6 +9,7 @@
 
     <title>Coursefinderdemo</title>
 
+    <link rel="stylesheet" type="text/css" href="style.css"/>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/jquery.wysiwyg.css"/>
     <link rel="stylesheet" type="text/css" href="css/facebox.css"/>
@@ -32,6 +33,7 @@
 
 <!--[if IE]>
 <script type="text/javascript" src="js/excanvas.js"></script><![endif]-->
+<script type="text/javascript" src="script.js"></script>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.img.preload.js"></script>
 <script type="text/javascript" src="js/jquery.filestyle.mini.js"></script>

@@ -189,18 +189,31 @@ $(function () {
 			autoSubmit: true,
 			name: 'userfile',
 			responseType: 'text/html',
-			onSubmit : function(file , ext) {
-					$('.fileupload #uploadmsg').addClass('loading').text('Uploading...');
-					this.disable();	
-				},
-			onComplete : function(file, response) {
-					$('.fileupload #uploadmsg').removeClass('loading').text(response);
-					this.enable();
-				}	
-		});
+            onSubmit : function(file , ext) {
+                if (validateFileExt(ext) == false) {
+                    $('.fileupload #uploadmsg').text("File type doesn't match. Please select correct file type first.");
+                    return false;
+                }
+                $('.submit').addClass('submitActionLoading');
+                $('.submit').attr('disabled', 'true');
+                $('.fileupload #uploadmsg').addClass('loading').text('Uploading...');
+                this.disable();
+            },
+            onComplete : function(file, response) {
+                $('.submit').removeClass('submitActionLoading');
+                $('.submit').removeAttr('disabled');
+                $('#uploaded_file_name').attr('value',file);
+                $('.fileupload #uploadmsg').removeClass('loading').text(response);
+                $('.fileupload .file').removeClass('redBorder');
+                this.enable();
+            }
+        });
 	}
-		
-		
+
+    function validateFileExt(ext) {
+        var selectedExt = document.getElementById("file_type").value;
+        return (ext == selectedExt);
+    }
 	
 	// Date picker
 	$('input.date_picker').date_input();

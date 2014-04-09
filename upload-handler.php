@@ -1,13 +1,10 @@
 <?php
-$uploaddir = $_SERVER['DOCUMENT_ROOT'].'/adminus/uploads/';
-
+$uploaddir = dirname(__FILE__).'/uploads/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 
 if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
-	echo "Done!";
+    echo "File Uploaded!";
 } else {
-// WARNING! DO NOT USE "FALSE" STRING AS A RESPONSE!
-// Otherwise onSubmit event will not be fired
-	echo "Error";
+    echo "There was an error uploading your file, please try again.";
 }
 ?>
