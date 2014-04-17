@@ -15,13 +15,16 @@ function step3($matching)
     );
     $errorFound = 0;
 
-    $db = new db_helper();
-    $apply_filter = new filter();
-    $parser = new CsvConversion();
-    $file_data = $parser->get_converted_file_data();
-    $csv_column_name = $parser->parse_csv_column('database_column.csv', true);
+    $db = new db_helper(); // Database Object
+    $apply_filter = new filter(); // Filter Object
+    $parser = new CsvConversion(); // File Parsing Object
+    $file_data = $parser->get_converted_file_data(); // User's File Data
+    $csv_column_name = $parser->parse_csv_column('database_column.csv', true); // Database Column Name Visible To User
 
-    //Apply Required Start
+    /*****************************************************************************/
+    /*****************************Validation Start********************************/
+    /*****************************************************************************/
+    //Required Apply Start
     foreach ($required as $key => $column) {
         if (($mappedColumn = array_search($column, $matching)) === false) {
             $errorFound = 1;
@@ -42,9 +45,9 @@ function step3($matching)
             $messages['error'][] = $errorMessage;
         }
     }
-    //Apply Required End
+    //Required Apply End
 
-    //Apply Filters Start
+    //Filters Apply Start
     foreach ($filters as $column => $value) {
         if (($mappedColumn = array_search($column, $matching)) === false) {
             continue;
@@ -59,7 +62,7 @@ function step3($matching)
                 $errorMessage = str_replace('{row}', $rows, $errorMessage);
             }
         } else if ($filterArray[0] == 'table') {
-            $rows = $apply_filter->tableFilter($file_data, $mappedColumn, $db->{strtolower($filterArray[1])}, $filterArray[2]);
+            $rows = $apply_filter->tableFilter($file_data, $mappedColumn, $db->{$filterArray[1]}, $filterArray[2]);
             if ($rows !== '') {
                 $errorMessage = $error_messages['table']['message'];
                 $errorMessage = str_replace('{column}', $csv_column_name[$column], $errorMessage);
@@ -90,10 +93,35 @@ function step3($matching)
             $messages['error'][] = $errorMessage;
         }
     }
-    //Apply Filters End
+    //Filters Apply End
+
+    //Category Validation Start
+    $rows = $apply_filter->categoryFilter($file_data, array_search('categories', $matching), $db->EventCategory, 'title');
+    if ($rows !== '') {
+        $errorMessage = $error_messages['course_categories']['message'];
+        $errorMessage = str_replace('{row}', $rows, $errorMessage);
+        $errorFound = 1;
+        $messages['error'][] = $errorMessage;
+    }
+    //Category Validation End
+
+    //Course Duration Validation Start
+    if (($mappedColumn = array_search('course_duration', $matching)) !== false) {
+        $rows = $apply_filter->courseDurationFilter($file_data, $mappedColumn, explode(',', COURSE_DURATION_TEXT));
+        if ($rows !== '') {
+            $errorMessage = $error_messages['course_duration']['message'];
+            $errorMessage = str_replace('{row}', $rows, $errorMessage);
+            $errorFound = 1;
+            $messages['error'][] = $errorMessage;
+        }
+    }
+    //Course Duration Validation End
 
     if ($errorFound) {
         step2($messages, $matching);
 //        $db->debug($messages);
     }
+    /*****************************************************************************/
+    /******************************Validation End*********************************/
+    /*****************************************************************************/
 }

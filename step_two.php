@@ -5,7 +5,7 @@ function step2($messages = array(), $matching = array())
     $conversion = new CsvConversion();
     $uploadedFileColumn = $conversion->parse_csv_column();
     if ($conversion->count_rows() > MAX_ALLOWED_ROWS_PER_BATCH) {
-        $warning = 'Caution! Your file contains more than 250 rows of data. Remember only first 250 rows will be considered as input and the rest will be ignored. To upload more courses, please split your file where each file should not contain more than 250 rows of data. Thanks for your understanding.';
+        $warning = 'Caution! Your file contains more than ' . MAX_ALLOWED_ROWS_PER_BATCH . ' rows of data. Remember only first 250 rows will be considered as input and the rest will be ignored. To upload more courses, please split your file where each file should not contain more than 250 rows of data. Thanks for your understanding.';
     }
     $csv_column_name = $conversion->parse_csv_column('database_column.csv', true);
     global $required;
@@ -20,6 +20,11 @@ function step2($messages = array(), $matching = array())
         }
     }
     $instruction .= "$column.";
+    $messages['info'][] = 'Please map each column only once.';
+    $messages['info'][] = $instruction;
+    if (isset($warning)) {
+        $messages['warning'][] = $warning;
+    }
     ?>
     <div class="block" style="margin: 10px 20px 25px 0px; padding-bottom: 0px;">
         <div class="block_head">
@@ -35,9 +40,6 @@ function step2($messages = array(), $matching = array())
             <h2>Map your column names with the appropriate column names of the database file that you
                 import.</h2>
 
-            <?php if (isset($warning)) { ?>
-                <div class="message warning"><p><?php echo $warning ?></p></div><?php } ?>
-            <div class="message info"><p><?php echo $instruction ?></p></div>
             <?php messages($messages); ?>
             <?php if (count($uploadedFileColumn) > 0) { ?>
                 <form id="course_import_step_two" name="course_import_step_two"

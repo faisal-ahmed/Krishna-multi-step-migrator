@@ -2,6 +2,12 @@
 
 function messages($messages)
 {
+    if (isset($messages['info'])) {
+        foreach ($messages['info'] as $key => $value) {
+            ?>
+            <div class="message info"><p><?php echo $value ?></p></div><?php
+        }
+    }
     if (isset($messages['error'])) {
         foreach ($messages['error'] as $key => $value) {
             ?>
@@ -12,12 +18,6 @@ function messages($messages)
         foreach ($messages['warning'] as $key => $value) {
             ?>
             <div class="message warning"><p><?php echo $value ?></p></div><?php
-        }
-    }
-    if (isset($messages['info'])) {
-        foreach ($messages['info'] as $key => $value) {
-            ?>
-            <div class="message info"><p><?php echo $value ?></p></div><?php
         }
     }
     if (isset($messages['success'])) {

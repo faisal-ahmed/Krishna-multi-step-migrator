@@ -3,7 +3,9 @@
 date_default_timezone_set('Pacific/Auckland');
 $current_time_stamp = time();
 $current_time = date("Y-m-d H:i:s", $current_time_stamp);
+define('COURSE_DURATION_TEXT', 'day,days,hour,hours,month,months');
 define('MAX_ALLOWED_ROWS_PER_BATCH', 250);
+define('CATEGORY_SEPARATOR', ';');
 
 global $automatic_values;
 global $default_values;
@@ -92,11 +94,11 @@ $filters = array(
     'categories' => '',
     'course_code' => 'length__32',
     'course_price' => 'length__32',
-    'course_free' => 'list__"t","f","yes","no","y","n","true","false"',
+    'course_free' => 'list__"T","F","Yes","No","Y","N","TRUE","FALSE"',
     'discounts_available' => 'length__500',
     'course_type' => 'table__EventType__Type',
     'delivery_method' => 'list__"at a venue","online"',
-    'private_course' => 'list__"t","f","yes","no","y","n","true","false"',
+    'private_course' => 'list__"T","F","Yes","No","Y","N","TRUE","FALSE"',
     'pre_requisites' => '',
     'target_audience' => '',
     'programme_structure' => '',
@@ -136,10 +138,14 @@ $error_messages = array(
     ),
     'datetime' => array(
         'replace' => 'row',
-        'message' => 'Invalid date or time format in rows {row}. Supported formats are YYYY-MM-DD or HH:MM:SS for date or time respectively.',
+        'message' => 'Invalid date or time format in rows {row}. Supported formats are YYYY-MM-DD and HH:MM:SS for date and time respectively.',
     ),
     'email' => array(
         'replace' => 'row',
         'message' => 'Invalid email in rows {row}.',
+    ),
+    'course_duration' => array(
+        'replace' => 'row',
+        'message' => 'Invalid value for Course Duration in rows {row}. Valid number is between 1 to 31 and suffix text are one of the day, days, hour, hours, month, months.',
     ),
 );

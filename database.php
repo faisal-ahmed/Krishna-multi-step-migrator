@@ -8,18 +8,18 @@ define('DB_PASSWORD', '');
 class db_orm
 {
     private $connection;
-    public $eventType;
-    public $location_2;
-    public $location_4;
-    public $eventCategory;
+    public $EventType;
+    public $Location_2;
+    public $Location_4;
+    public $EventCategory;
 
     public function __construct()
     {
         $this->connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE) or die("Error " . mysqli_error($this->connection));
-        $this->eventType = $this->fetch_table('eventtype');
-        $this->location_2 = $this->fetch_table('location_2');
-        $this->location_4 = $this->fetch_table('location_4');
-        $this->eventCategory = $this->fetch_table('eventcategory');
+        $this->EventType = $this->fetch_table('eventtype');
+        $this->Location_2 = $this->fetch_table('location_2');
+        $this->Location_4 = $this->fetch_table('location_4');
+        $this->EventCategory = $this->fetch_table('eventcategory');
     }
 
     public function fetch_table($table)
@@ -42,14 +42,9 @@ class db_helper extends db_orm
         parent::__construct();
     }
 
-    public function in_db_table($table_data, $table_column_name, $needle)
+    public function getTableData($tableName)
     {
-        foreach ($table_data as $key => $row) {
-            if (isset($row[$table_column_name]) && $row[$table_column_name] === $needle) {
-                return true;
-            }
-        }
-
+        if (isset($this->$tableName)) return $this->$tableName;
         return false;
     }
 
@@ -133,10 +128,15 @@ class filter
 
         $count = 1;
         foreach ($data as $key => $value) {
-            foreach ($table_data as $key2 => $row) {
-                if ($value[$column_name] !== '' && strtolower($row[$table_column_name]) !== strtolower($value[$column_name])) {
-                    $rows .= ($rows == '') ? $count : ", $count";
+            $flag = 0;
+            foreach ($table_data as $key2 => $table_row) {
+                if ($value[$column_name] !== '' && strtolower($table_row[$table_column_name]) === strtolower($value[$column_name])) {
+                    $flag = 1;
+                    break;
                 }
+            }
+            if (!$flag) {
+                $rows .= ($rows == '') ? $count : ", $count";
             }
             $count++;
         }
@@ -151,6 +151,51 @@ class filter
         $count = 1;
         foreach ($data as $key => $value) {
             if ($value[$column_name] !== '' && !in_array($value[$column_name], $list)) {
+                $rows .= ($rows == '') ? $count : ", $count";
+            }
+            $count++;
+        }
+
+        return $rows;
+    }
+
+    public function categoryFilter($data, $column_name, $table_data, $table_column_name)
+    {
+        $rows = '';
+
+        $count = 1;
+        foreach ($data as $key => $value) {
+            $categories = explode(CATEGORY_SEPARATOR, $value[$column_name]);
+            foreach ($categories as $cat_key => $category) {
+                $flag = 0;
+                foreach ($table_data as $key2 => $table_row) {
+                    if (strtolower($table_row[$table_column_name]) === strtolower(trim($category))) {
+                        $flag = 1;
+                        break;
+                    }
+                }
+                if (!$flag) {
+                    $rows .= ($rows == '') ? $count : ", $count";
+                    break;
+                }
+            }
+            $count++;
+        }
+
+        return $rows;
+    }
+
+    function courseDurationFilter($data, $column_name, $text_lists = array()) {
+        $rows = '';
+
+        $count = 1;
+        foreach ($data as $key => $value) {
+            if ($value[$column_name] === '' ) {
+                $count++;
+                continue;
+            }
+            list($number, $text) = explode(' ', $value[$column_name]);
+            if (!in_array($text, $text_lists) || $number < 1 || $number > 31) {
                 $rows .= ($rows == '') ? $count : ", $count";
             }
             $count++;
