@@ -1,12 +1,8 @@
 <?php
 
-if (isset($_REQUEST['get_my_csv']) && $_REQUEST['get_my_csv'] === 'download_now') {
-    $report = false;
-    if (isset($_REQUEST['file']) && $_REQUEST['file'] === 'report') {
-        $report = true;
-    }
+if (isset($_REQUEST['get_sample']) && $_REQUEST['get_sample'] === 'download_now') {
     $parser = new CsvConversion();
-    $parser->download_file($report);
+    $parser->download_file();
     die;
 }
 
@@ -42,13 +38,11 @@ class CsvConversion
         fclose($csv_handler);
     }
 
-    public function download_file($fileName = null)
+    public function download_file()
     {
         ob_start();
-        if ($fileName === null) {
-            $fileName = 'convertedFile.csv';
-        }
-        if (file_exists(dirname(__FILE__) . '/uploads/' . $fileName)) {
+        $fileName = 'sample.csv';
+        if (file_exists(dirname(__FILE__) . '/static/' . $fileName)) {
             header('Content-Description: File Transfer');
             header("Content-Type: application/force-download");
             header("Content-Type: application/octet-stream");
@@ -59,10 +53,10 @@ class CsvConversion
             header('Expires: 0');
             header('Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate');
             header('Pragma: public');
-            header('Content-Length: ' . filesize(dirname(__FILE__) . '/uploads/' . $fileName));
+            header('Content-Length: ' . filesize(dirname(__FILE__) . '/static/' . $fileName));
             ob_clean();
             flush();
-            readfile(dirname(__FILE__) . '/uploads/' . $fileName);
+            readfile(dirname(__FILE__) . '/static/' . $fileName);
         }
         ob_end_flush();
         die;

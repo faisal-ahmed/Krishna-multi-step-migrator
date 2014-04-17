@@ -1,7 +1,27 @@
 <?php
 
 function step1(){
-?>
+    if ($_SERVER['HTTP_HOST'] == 'localhost') {
+        $url = "/" . basename(__DIR__) . '/utils_conversion.php?get_sample=download_now';
+    } else {
+        $url = '/wp-content/plugins/' . basename(__DIR__) . '/utils_conversion.php?get_sample=download_now';
+    }
+    ?>
+    <script type="text/javascript">
+        function download_csv(){
+            var file_download = $.post( "", {'get_sample': 'download_now'}, function( data ) {
+                var iframe = document.getElementById("download-container");
+                if (iframe === null)
+                {
+                    iframe = document.createElement('iframe');
+                    iframe.id = "download-container";
+                    iframe.style.visibility = 'hidden';
+                    document.body.appendChild(iframe);
+                }
+                iframe.src = "<?php echo $url ?>";
+            });
+        }
+    </script>
 <div class="block" style="margin: 10px 20px 25px 0px; padding-bottom: 0px;">
     <div class="block_head">
         <div class="bheadl"></div>
@@ -16,9 +36,10 @@ function step1(){
             <input type="hidden" id="uploaded_file_name" name="uploaded_file_name" value=""/>
 
             <h3 style="text-decoration: underline;">Step One</h3>
-            <h4>Few instruction messages goes here</h4>
+            <h4>Please <a href="#" onclick="download_csv()">download the sample file</a> to match with your file first.</h4>
+            <div class="message info"><p>Please select Microsoft Excel or CSV type file only.</p></div>
 
-            <p>
+<!--            <p>
                 <label for="file_type">Your file type: </label>
                 <select id="file_type" class="styled" name="file_type">
                     <option selected="selected" value="">None</option>
@@ -27,7 +48,7 @@ function step1(){
                     <option value="csv">CSV File</option>
                 </select>
             </p>
-            <p class="fileupload">
+-->            <p class="fileupload">
                 <label>Your file: </label><br/>
                 <input id="fileupload" type="file"/>
                 <span id="uploadmsg">Max size depends on your server uploading configuration.</span>
