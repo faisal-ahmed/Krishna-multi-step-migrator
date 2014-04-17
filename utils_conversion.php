@@ -23,6 +23,7 @@ class CsvConversion
             return null;
         }
 
+        $count = 1;
         $csv = '';
         $csv_handler = fopen(dirname(__FILE__) . '/uploads/' . $fileName, 'w');
         foreach ($csv_array as $key => $value) {
@@ -32,6 +33,9 @@ class CsvConversion
                 else $csv .= ",$value1";
             }
             $csv .= "\n";
+            if ($count++ >= MAX_ALLOWED_ROWS_PER_BATCH){
+                break;
+            }
         }
 
         fwrite($csv_handler, $csv);
@@ -98,10 +102,14 @@ class CsvConversion
 
     public function parse_csv_column($filename = null, $split = false)
     {
+        $dir = 'uploads';
+        if ($split) {
+            $dir = 'static';
+        }
         if ($filename == null) {
-            $fp = fopen(dirname(__FILE__) . '/uploads/convertedFile.csv', 'r') or die("can't open file");
+            $fp = fopen(dirname(__FILE__) . "/$dir/convertedFile.csv", 'r') or die("can't open file");
         } else {
-            $fp = fopen(dirname(__FILE__) . '/uploads/' . $filename, 'r') or die("can't open file");
+            $fp = fopen(dirname(__FILE__) . "/$dir/$filename", 'r') or die("can't open file");
         }
         $return = array();
 
@@ -145,12 +153,18 @@ class CsvConversion
         $fp = fopen(dirname(__FILE__) . '/uploads/convertedFile.csv', 'r') or die("can't open file");
         $return = array();
 
+        $column = array();
         $count = 0;
         while ($csv_line = fgetcsv($fp)) {
-            if ($count++ == 0) continue;
+            if ($count++ == 0){
+                for ($i = 0, $j = count($csv_line); $i < $j; $i++) {
+                    $column[] = trim($csv_line[$i]);
+                }
+                continue;
+            }
             $temp = array();
             for ($i = 0, $j = count($csv_line); $i < $j; $i++) {
-                $temp[] = trim($csv_line[$i]);
+                $temp[$column[$i]] = trim($csv_line[$i]);
             }
             $return[] = $temp;
         }

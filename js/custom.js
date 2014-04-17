@@ -210,7 +210,7 @@ $(function () {
     }
 
     function validateFileExt(ext) {
-        var validExt = ["csv", "xls", "xlsx"];
+        var validExt = ['csv', 'xls', 'xlsx'];
         for (var i = 0; i < validExt.length; i++) {
             if (validExt[i] == ext) {
                 return true;

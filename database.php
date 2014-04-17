@@ -42,9 +42,10 @@ class db_helper extends db_orm
         parent::__construct();
     }
 
-    public function in_db_table($table_data, $table_column_name, $needle) {
+    public function in_db_table($table_data, $table_column_name, $needle)
+    {
         foreach ($table_data as $key => $row) {
-            if (isset($row[$table_column_name]) && $row[$table_column_name] === $needle){
+            if (isset($row[$table_column_name]) && $row[$table_column_name] === $needle) {
                 return true;
             }
         }
@@ -52,9 +53,115 @@ class db_helper extends db_orm
         return false;
     }
 
-    public function debug($data) {
+    public function debug($data)
+    {
         echo "<pre>";
         print_r($data);
         echo "</pre>";
+    }
+}
+
+class filter
+{
+    public function __construct()
+    {
+    }
+
+    public function requiredFilter($data, $column_name)
+    {
+        $rows = '';
+
+        $count = 1;
+        foreach ($data as $key => $value) {
+            if ($value[$column_name] === '') {
+                $rows .= ($rows == '') ? $count : ", $count";
+            }
+            $count++;
+        }
+
+        return $rows;
+    }
+
+    public function lengthFilter($data, $column_name, $length)
+    {
+        $rows = '';
+
+        $count = 1;
+        foreach ($data as $key => $value) {
+            if (strlen($value[$column_name]) > $length) {
+                $rows .= ($rows == '') ? $count : ", $count";
+            }
+            $count++;
+        }
+
+        return $rows;
+    }
+
+    public function dateFilter($data, $column_name, $dateFormat)
+    {
+        $rows = '';
+
+        $count = 1;
+        foreach ($data as $key => $value) {
+            if ($value[$column_name] !== '' && !$this->validateDate($value[$column_name], $dateFormat)) {
+                $rows .= ($rows == '') ? $count : ", $count";
+            }
+            $count++;
+        }
+
+        return $rows;
+    }
+
+    public function emailFilter($data, $column_name)
+    {
+        $rows = '';
+
+        $count = 1;
+        foreach ($data as $key => $value) {
+            if ($value[$column_name] !== '' && !filter_var($value[$column_name], FILTER_VALIDATE_EMAIL)) {
+                $rows .= ($rows == '') ? $count : ", $count";
+            }
+            $count++;
+        }
+
+        return $rows;
+    }
+
+    public function tableFilter($data, $column_name, $table_data, $table_column_name)
+    {
+        $rows = '';
+
+        $count = 1;
+        foreach ($data as $key => $value) {
+            foreach ($table_data as $key2 => $row) {
+                if ($value[$column_name] !== '' && strtolower($row[$table_column_name]) !== strtolower($value[$column_name])) {
+                    $rows .= ($rows == '') ? $count : ", $count";
+                }
+            }
+            $count++;
+        }
+
+        return $rows;
+    }
+
+    public function listFilter($data, $column_name, $list = array())
+    {
+        $rows = '';
+
+        $count = 1;
+        foreach ($data as $key => $value) {
+            if ($value[$column_name] !== '' && !in_array($value[$column_name], $list)) {
+                $rows .= ($rows == '') ? $count : ", $count";
+            }
+            $count++;
+        }
+
+        return $rows;
+    }
+
+    function validateDate($date, $format = 'Y-m-d H:i:s')
+    {
+        $d = DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) == $date;
     }
 }

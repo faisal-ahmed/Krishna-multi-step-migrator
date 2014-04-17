@@ -3,6 +3,13 @@
 date_default_timezone_set('Pacific/Auckland');
 $current_time_stamp = time();
 $current_time = date("Y-m-d H:i:s", $current_time_stamp);
+define('MAX_ALLOWED_ROWS_PER_BATCH', 250);
+
+global $automatic_values;
+global $default_values;
+global $required;
+global $filters;
+global $error_messages;
 
 $automatic_values = array(
     'updated' => $current_time,
@@ -69,7 +76,7 @@ $required = array(
 
 $filters = array(
     'title' => 'length__250',
-    'location_2' => 'table__Location_2__name',
+    //'location_2' => 'table__Location_2__name', Fetch it from location 4
     'location_4' => 'table__Location_4__name',
     'description' => 'length__500',
     'long_description' => '',
@@ -81,7 +88,7 @@ $filters = array(
     'address' => '',
     'zip_code' => 'length__6',
     'url' => '',
-    'email' => 'PHPFILTER__FILTER_VALIDATE_EMAIL',
+    'email' => 'email__FILTER_VALIDATE_EMAIL',
     'categories' => '',
     'course_code' => 'length__32',
     'course_price' => 'length__32',
@@ -130,5 +137,9 @@ $error_messages = array(
     'datetime' => array(
         'replace' => 'row',
         'message' => 'Invalid date or time format in rows {row}. Supported formats are YYYY-MM-DD or HH:MM:SS for date or time respectively.',
+    ),
+    'email' => array(
+        'replace' => 'row',
+        'message' => 'Invalid email in rows {row}.',
     ),
 );
