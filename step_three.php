@@ -2,8 +2,6 @@
 
 function step3($matching)
 {
-    global $automatic_values;
-    global $default_values;
     global $required;
     global $filters;
     global $error_messages;
@@ -20,6 +18,10 @@ function step3($matching)
     $parser = new CsvConversion(); // File Parsing Object
     $file_data = $parser->get_converted_file_data(); // User's File Data
     $csv_column_name = $parser->parse_csv_column('database_column.csv', true); // Database Column Name Visible To User
+
+    /*****************************************************************************/
+    /***************This step is mainly responsible for validation****************/
+    /*****************************************************************************/
 
     /*****************************************************************************/
     /*****************************Validation Start********************************/
@@ -103,6 +105,14 @@ function step3($matching)
         $errorFound = 1;
         $messages['error'][] = $errorMessage;
     }
+
+    $rows = $apply_filter->categoryCountFilter($file_data, array_search('categories', $matching));
+    if ($rows !== '') {
+        $errorMessage = $error_messages['count_categories']['message'];
+        $errorMessage = str_replace('{row}', $rows, $errorMessage);
+        $errorFound = 1;
+        $messages['error'][] = $errorMessage;
+    }
     //Category Validation End
 
     //Course Duration Validation Start
@@ -118,10 +128,17 @@ function step3($matching)
     //Course Duration Validation End
 
     if ($errorFound) {
-        step2($messages, $matching);
+//        step2($messages, $matching);
 //        $db->debug($messages);
+//        return;
     }
     /*****************************************************************************/
     /******************************Validation End*********************************/
     /*****************************************************************************/
+
+    /*****************************************************************************/
+    /***************This step is mainly responsible for insert data***************/
+    /*****************************************************************************/
+
+    $db->insertEvents($file_data, $matching);
 }

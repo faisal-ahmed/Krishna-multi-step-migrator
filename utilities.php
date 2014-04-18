@@ -55,7 +55,6 @@ $automatic_values = array(
     'course_duration_year' => 0,
     'presenter_experience' => null,
     'noschedule' => null,
-    'zip5' => '',
 );
 
 $default_values = array(
@@ -82,10 +81,10 @@ $filters = array(
     'location_4' => 'table__Location_4__name',
     'description' => 'length__500',
     'long_description' => '',
-    'start_date' => 'datetime__Y-m-d',
-    'start_time' => 'datetime__H:i:s',
-    'end_date' => 'datetime__Y-m-d',
-    'end_time' => 'datetime__H:i:s',
+    'start_date_time' => 'datetime__Y-m-d H:i:s',
+    //'start_time' => 'datetime__H:i:s',
+    'end_date_time' => 'datetime__Y-m-d H:i:s',
+    //'end_time' => 'datetime__H:i:s',
     'location' => '',
     'address' => '',
     'zip_code' => 'length__6',
@@ -94,7 +93,7 @@ $filters = array(
     'categories' => '',
     'course_code' => 'length__32',
     'course_price' => 'length__32',
-    'course_free' => 'list__"T","F","Yes","No","Y","N","TRUE","FALSE"',
+    'course_free' => 'list__"Y","N"',
     'discounts_available' => 'length__500',
     'course_type' => 'table__EventType__Type',
     'delivery_method' => 'list__"at a venue","online"',
@@ -124,6 +123,10 @@ $error_messages = array(
         'replace' => 'row',
         'message' => 'Course categories entered does not exist in the system for the rows {row}. Please separate categories by semi-colon(;) only and not any other characters.',
     ),
+    'count_categories' => array(
+        'replace' => 'row',
+        'message' => 'Number of Course Categories entered exceeds the limits for the rows {row}. You can associate at most 5 categories for a single course.',
+    ),
     'table' => array(
         'replace' => 'column__row',
         'message' => 'The text entered in import file for the {column} does not match any available options for the field in rows {row}.',
@@ -138,7 +141,7 @@ $error_messages = array(
     ),
     'datetime' => array(
         'replace' => 'row',
-        'message' => 'Invalid date or time format in rows {row}. Supported formats are YYYY-MM-DD and HH:MM:SS for date and time respectively.',
+        'message' => 'Invalid date or time format in rows {row}. Supported format is "YYYY-MM-DD HH:MM:SS" for date time.',
     ),
     'email' => array(
         'replace' => 'row',

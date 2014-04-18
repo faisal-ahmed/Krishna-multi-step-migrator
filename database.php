@@ -12,6 +12,7 @@ class db_orm
     public $Location_2;
     public $Location_4;
     public $EventCategory;
+    public $parentCategories;
 
     public function __construct()
     {
@@ -20,6 +21,75 @@ class db_orm
         $this->Location_2 = $this->fetch_table('location_2');
         $this->Location_4 = $this->fetch_table('location_4');
         $this->EventCategory = $this->fetch_table('eventcategory');
+        $this->buildParentCat();
+    }
+
+    public function getLocationID($location_4_name)
+    {
+        foreach ($this->Location_4 as $key => $row) {
+            if ($row['name'] == $location_4_name) {
+                return array($row['id'], $row['location_2']);
+            }
+        }
+
+        return false;
+    }
+
+    public function getRegionName($regionID)
+    {
+        foreach ($this->Location_2 as $key => $row) {
+            if ($row['id'] == $regionID) {
+                return $row['name'];
+            }
+        }
+
+        return false;
+    }
+
+    public function buildParentCat()
+    {
+        $this->parentCategories = array();
+        $temp_cat = array();
+        foreach ($this->EventCategory as $key => $cat) {
+            $temp_cat[$cat['id']] = $cat['category_id'];
+            $this->parentCategories[$cat['title']] = array($cat['id']);
+        }
+
+        foreach ($this->parentCategories as $title => $cat_id_array) {
+            $temp_cat_id = $cat_id_array[0];
+            if ($temp_cat_id !== 0) {
+                $count = 4;
+                while ($temp_cat[$temp_cat_id] && $count--) {
+                    $this->parentCategories[$title][] = $temp_cat[$temp_cat_id];
+                    $temp_cat_id = $temp_cat[$temp_cat_id];
+                }
+            }
+        }
+    }
+
+    public function insert($table_name, $columns, $values)
+    {
+        $query = "INSERT INTO $table_name (";
+        $flag = 0;
+        foreach ($columns as $key => $value) {
+            $query .= ($flag++) ? ", $value" : $value;
+        }
+        $query .= ") VALUES (";
+        $flag = 0;
+        foreach ($values as $key => $value) {
+            $query .= ($flag++) ? ", '$value''" : "'$value''";
+        }
+        $query .= ")";
+
+        $this->debug($query);
+        return;
+        $stmt = $this->connection->prepare($query);
+        if ($result = $stmt->execute()) {
+            echo "success";
+            $stmt->free_result();
+        } else {
+            echo "error";
+        }
     }
 
     public function fetch_table($table)
@@ -33,6 +103,13 @@ class db_orm
 
         return $return;
     }
+
+    public function debug($data)
+    {
+        echo "<pre>";
+        print_r($data);
+        echo "</pre>";
+    }
 }
 
 class db_helper extends db_orm
@@ -42,17 +119,68 @@ class db_helper extends db_orm
         parent::__construct();
     }
 
-    public function getTableData($tableName)
+    public function insertEvents($data_file, $matching)
     {
-        if (isset($this->$tableName)) return $this->$tableName;
-        return false;
-    }
+        global $automatic_values;
+        global $default_values;
 
-    public function debug($data)
-    {
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
+        foreach ($data_file as $row_key => $each_row) {
+            $insert_row = $automatic_values;
+            $insert_row['location'] = '';
+            $insert_row['address'] = '';
+            $insert_row['zip_code'] = '';
+            $region = '';
+            $city = '';
+            foreach ($each_row as $key => $value) {
+                if (!isset($matching[$key]) || $matching[$key] == '') continue;
+                if ($matching[$key] == 'categories') {
+                    $categories = explode(CATEGORY_SEPARATOR, $value);
+                    for ($i = 0; $i < count($categories); $i++) {
+                        $cat_index = ($i + 1);
+                        $temp_db_row_key = "cat_{$cat_index}_id";
+                        for ($j = 1; $j <= count($this->parentCategories[$categories[$i]]); $j++) {
+                            $insert_row[$temp_db_row_key] = $this->parentCategories[$categories[$i]][$j - 1];
+                            $temp_db_row_key = "parcat_{$cat_index}_level{$j}_id";
+                        }
+                    }
+                } else if ($matching[$key] == 'course_duration') {
+                    list($insert_row['course_duration_no'], $insert_row['course_duration_hour']) = explode(' ', $value);
+                } else if ($matching[$key] == 'location_4') {
+                    list($insert_row['location_4'], $insert_row['location_2']) = $this->getLocationID($value);
+                    $region = $this->getRegionName($insert_row['location_2']);
+                    $city = $value;
+                } else if ($matching[$key] == 'start_date_time') {
+                    list($insert_row['start_date'], $insert_row['start_time']) = explode(' ', $value);
+                    $insert_row['has_start_time'] = 'y';
+                } else if ($matching[$key] == 'end_date_time') {
+                    list($insert_row['end_date'], $insert_row['end_time']) = explode(' ', $value);
+                    $insert_row['has_end_time'] = 'y';
+                } else if ($matching[$key] == 'course_free' || $matching[$key] == 'delivery_method' || $matching[$key] == 'private_course') {
+                    $insert_row[$matching[$key]] = strtoupper($value);
+                } else {
+                    $insert_row[$matching[$key]] = $value;
+                }
+            }
+            if (!isset($insert_row['course_type'])) {
+                $insert_row['course_type'] = 'null';
+            }
+            if (!isset($insert_row['start_date'])) {
+                $insert_row['start_date'] = $default_values['start_date'];
+                $insert_row['start_time'] = $default_values['start_time'];
+            }
+            if (!isset($insert_row['end_date'])) {
+                $insert_row['end_date'] = $default_values['end_date'];
+                $insert_row['end_time'] = $default_values['end_time'];
+            }
+            $insert_row['friendly_url'] = str_replace(" ", "-", strtolower($insert_row['title'])) . "-" . time();
+            $insert_row['fulltextsearch_keyword'] = "Title: {$insert_row['title']}, Description: {$insert_row['description']}";
+            $insert_row['fulltextsearch_where'] = "Location: {$insert_row['location']}, Address: {$insert_row['address']}, Zip: {$insert_row['zip_code']}, Region: $region, City: $city.";
+            //TODO: place the lat/lon here
+            $insert_row['latitude'] = 12.35;
+            $insert_row['longitude'] = 35.55;
+            $this->insert('event', array_keys($insert_row), $insert_row);
+            break;
+        }
     }
 }
 
@@ -150,8 +278,17 @@ class filter
 
         $count = 1;
         foreach ($data as $key => $value) {
-            if ($value[$column_name] !== '' && !in_array($value[$column_name], $list)) {
-                $rows .= ($rows == '') ? $count : ", $count";
+            if ($value[$column_name] !== '') {
+                $flag = 0;
+                foreach ($list as $key2 => $value2) {
+                    if (strtoupper($value[$column_name]) == strtoupper($value2)) {
+                        $flag = 1;
+                        break;
+                    }
+                }
+                if ($flag == 0) {
+                    $rows .= ($rows == '') ? $count : ", $count";
+                }
             }
             $count++;
         }
@@ -185,12 +322,29 @@ class filter
         return $rows;
     }
 
-    function courseDurationFilter($data, $column_name, $text_lists = array()) {
+    public function categoryCountFilter($data, $column_name)
+    {
         $rows = '';
 
         $count = 1;
         foreach ($data as $key => $value) {
-            if ($value[$column_name] === '' ) {
+            $categories = explode(CATEGORY_SEPARATOR, $value[$column_name]);
+            if (count($categories) > 5) {
+                $rows .= ($rows == '') ? $count : ", $count";
+            }
+            $count++;
+        }
+
+        return $rows;
+    }
+
+    function courseDurationFilter($data, $column_name, $text_lists = array())
+    {
+        $rows = '';
+
+        $count = 1;
+        foreach ($data as $key => $value) {
+            if ($value[$column_name] === '') {
                 $count++;
                 continue;
             }
