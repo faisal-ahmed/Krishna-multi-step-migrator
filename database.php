@@ -77,19 +77,13 @@ class db_orm
         $query .= ") VALUES (";
         $flag = 0;
         foreach ($values as $key => $value) {
-            $query .= ($flag++) ? ", '$value''" : "'$value''";
+            $query .= ($flag++) ? ", '$value'" : "'$value'";
         }
         $query .= ")";
 
-        $this->debug($query);
-        return;
-        $stmt = $this->connection->prepare($query);
-        if ($result = $stmt->execute()) {
-            echo "success";
-            $stmt->free_result();
-        } else {
-            echo "error";
-        }
+        print_r($query);
+        $stmt = $this->connection->query($query);
+        var_dump($stmt);
     }
 
     public function fetch_table($table)
@@ -138,8 +132,9 @@ class db_helper extends db_orm
                     for ($i = 0; $i < count($categories); $i++) {
                         $cat_index = ($i + 1);
                         $temp_db_row_key = "cat_{$cat_index}_id";
-                        for ($j = 1; $j <= count($this->parentCategories[$categories[$i]]); $j++) {
-                            $insert_row[$temp_db_row_key] = $this->parentCategories[$categories[$i]][$j - 1];
+                        $tempCategory = trim($categories[$i]);
+                        for ($j = 1; $j <= count($this->parentCategories[$tempCategory]); $j++) {
+                            $insert_row[$temp_db_row_key] = $this->parentCategories[$tempCategory][$j - 1];
                             $temp_db_row_key = "parcat_{$cat_index}_level{$j}_id";
                         }
                     }
@@ -194,7 +189,7 @@ class filter
     {
         $rows = '';
 
-        $count = 1;
+        $count = 2;
         foreach ($data as $key => $value) {
             if ($value[$column_name] === '') {
                 $rows .= ($rows == '') ? $count : ", $count";
@@ -209,7 +204,7 @@ class filter
     {
         $rows = '';
 
-        $count = 1;
+        $count = 2;
         foreach ($data as $key => $value) {
             if (strlen($value[$column_name]) > $length) {
                 $rows .= ($rows == '') ? $count : ", $count";
@@ -223,11 +218,26 @@ class filter
     public function dateFilter($data, $column_name, $dateFormat)
     {
         $rows = '';
+        $dateTimeFormat = explode(' ', $dateFormat);
 
-        $count = 1;
+        $count = 2;
         foreach ($data as $key => $value) {
-            if ($value[$column_name] !== '' && !$this->validateDate($value[$column_name], $dateFormat)) {
-                $rows .= ($rows == '') ? $count : ", $count";
+            if ($value[$column_name] !== '') {
+                $dateTimeValue = explode(' ', $value[$column_name]);
+                $flag = 1;
+                if (count($dateTimeFormat) === count($dateTimeValue)) {
+                    foreach ($dateTimeFormat as $formatKey => $format) {
+                        if ($this->validateDate($dateTimeValue[$formatKey], $format)) {
+                            $flag = 0;
+                            break;
+                        }
+                    }
+                } else {
+                    $flag = 0;
+                }
+                if (!$flag) {
+                    $rows .= ($rows == '') ? $count : ", $count";
+                }
             }
             $count++;
         }
@@ -239,7 +249,7 @@ class filter
     {
         $rows = '';
 
-        $count = 1;
+        $count = 2;
         foreach ($data as $key => $value) {
             if ($value[$column_name] !== '' && !filter_var($value[$column_name], FILTER_VALIDATE_EMAIL)) {
                 $rows .= ($rows == '') ? $count : ", $count";
@@ -254,7 +264,7 @@ class filter
     {
         $rows = '';
 
-        $count = 1;
+        $count = 2;
         foreach ($data as $key => $value) {
             $flag = 0;
             foreach ($table_data as $key2 => $table_row) {
@@ -276,7 +286,7 @@ class filter
     {
         $rows = '';
 
-        $count = 1;
+        $count = 2;
         foreach ($data as $key => $value) {
             if ($value[$column_name] !== '') {
                 $flag = 0;
@@ -300,7 +310,7 @@ class filter
     {
         $rows = '';
 
-        $count = 1;
+        $count = 2;
         foreach ($data as $key => $value) {
             $categories = explode(CATEGORY_SEPARATOR, $value[$column_name]);
             foreach ($categories as $cat_key => $category) {
@@ -326,7 +336,7 @@ class filter
     {
         $rows = '';
 
-        $count = 1;
+        $count = 2;
         foreach ($data as $key => $value) {
             $categories = explode(CATEGORY_SEPARATOR, $value[$column_name]);
             if (count($categories) > 5) {
@@ -342,14 +352,19 @@ class filter
     {
         $rows = '';
 
-        $count = 1;
+        $count = 2;
         foreach ($data as $key => $value) {
             if ($value[$column_name] === '') {
                 $count++;
                 continue;
             }
-            list($number, $text) = explode(' ', $value[$column_name]);
-            if (!in_array($text, $text_lists) || $number < 1 || $number > 31) {
+            $duration_array = explode(' ', $value[$column_name]);
+            if (count($duration_array) > 1) {
+                list($number, $text) = $duration_array;
+                if (!in_array($text, $text_lists) || $number < 1 || $number > 31) {
+                    $rows .= ($rows == '') ? $count : ", $count";
+                }
+            } else {
                 $rows .= ($rows == '') ? $count : ", $count";
             }
             $count++;

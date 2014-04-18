@@ -136,8 +136,8 @@ $error_messages = array(
         'message' => 'Maximum length of text for {column} is exceeded in rows {row}.',
     ),
     'list' => array(
-        'replace' => 'column__row',
-        'message' => 'Values permitted in {column} are T/F, Yes/No, Y/N, TRUE/FALSE. Please correct values in rows {row}.',
+        'replace' => 'column__row__format',
+        'message' => 'Values permitted in {column} are {format}. Please correct values in rows {row}.',
     ),
     'datetime' => array(
         'replace' => 'row',

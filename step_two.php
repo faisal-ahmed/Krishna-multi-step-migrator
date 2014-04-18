@@ -45,7 +45,7 @@ function step2($messages = array(), $matching = array())
                 <form id="course_import_step_two" name="course_import_step_two"
                       onsubmit="return validate_form_step_2();" method="post" action="">
                     <input type="hidden" name="step" value="step2"/>
-                    <input type="hidden" name="column_matching[account_id]" value=""/>
+                    <input type="hidden" name="column_matching[account_id]" value="1"/><!--For now hardcoded-->
 
                     <?php foreach ($uploadedFileColumn as $key => $value) {
                         $file_column_key .= ($file_column_key == '') ? $value : ",$value"; ?>

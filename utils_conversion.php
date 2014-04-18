@@ -28,7 +28,7 @@ class CsvConversion
         $csv_handler = fopen(dirname(__FILE__) . '/uploads/' . $fileName, 'w');
         foreach ($csv_array as $key => $value) {
             foreach ($value as $key1 => $value1) {
-                $value1 = '"' . $value1 . '"';
+                $value1 = '"' . htmlentities($value1) . '"';
                 if (!$key1) $csv .= $value1;
                 else $csv .= ",$value1";
             }
@@ -83,7 +83,7 @@ class CsvConversion
             $csvArray[$rowIndex] = array();
 
             foreach ($cellIterator as $cell) {
-                $csvArray[$rowIndex][] = $cell->getCalculatedValue();
+                $csvArray[$rowIndex][] = htmlentities($cell->getCalculatedValue());
             }
         }
 
@@ -115,7 +115,7 @@ class CsvConversion
 
         while ($csv_line = fgetcsv($fp)) {
             for ($i = 0, $j = count($csv_line); $i < $j; $i++) {
-                $temp_string = trim($csv_line[$i]);
+                $temp_string = html_entity_decode(trim($csv_line[$i]));
                 if ($split === true) {
                     list($key, $value) = explode(' - ', $temp_string);
                     $return[$key] = ucwords($value);
@@ -158,13 +158,13 @@ class CsvConversion
         while ($csv_line = fgetcsv($fp)) {
             if ($count++ == 0){
                 for ($i = 0, $j = count($csv_line); $i < $j; $i++) {
-                    $column[] = trim($csv_line[$i]);
+                    $column[] = html_entity_decode(trim($csv_line[$i]));
                 }
                 continue;
             }
             $temp = array();
             for ($i = 0, $j = count($csv_line); $i < $j; $i++) {
-                $temp[$column[$i]] = trim($csv_line[$i]);
+                $temp[$column[$i]] = html_entity_decode(trim($csv_line[$i]));
             }
             $return[] = $temp;
         }
@@ -184,7 +184,7 @@ class CsvConversion
             if (in_array($count, $rows)) {
                 $tempArray = array();
                 for ($i = 0, $j = count($csv_line); $i < $j; $i++) {
-                    $temp_string = trim($csv_line[$i]);
+                    $temp_string = html_entity_decode(trim($csv_line[$i]));
                     $tempArray[] = $temp_string;
                 }
                 $return[] = $tempArray;
@@ -208,7 +208,7 @@ class CsvConversion
         while ($csv_line = fgetcsv($fp)) {
             $temp = array();
             for ($i = 0, $j = count($csv_line); $i < $j; $i++) {
-                $temp[] = trim($csv_line[$i]);
+                $temp[] = html_entity_decode(trim($csv_line[$i]));
             }
             $return[] = $temp;
         }

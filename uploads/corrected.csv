@@ -1,0 +1,74 @@
+discount_id,title,location_4,description,long_description,start_date,end_date,location,address,zip_code,url,contact_name,phone,email,course_code,course_price,course_free,discounts_available,course_type,delivery_method,course_duration,private_course,pre_requisites,testimonials,presenter_name,presenter_qualifications,presenter_experience,presenter_details,schedule_description,categories
+,Influencing Senior Management,India,"This course is designed for the new manager. It outlines the various roles and responsibilities of the leader/ manager and offers practical advice, tips and techniques that will assist those embarking on a management career.","his is where the description of this course is displayed. Change this information by editing the details for this course from within the Management Platform.
+
+During this course we will cover;
+
+Course Objective 1
+Course Objective 2
+Course Objective 3
+Course Objective 4
+...",0000-00-00 0:00:00,0000-00-00 0:00:00,,,,,,,test@example.com,NULL,NULL,,,Professional Development,T,2 hours,N,NULL,NULL,NULL,NULL,NULL,NULL,NULL,Arts & Crafts; Textiles
+,Motivation and Leadership,Auckland City,This Short Course is aimed directly at enabling you or your organisation to understand and practise the implementation of process mapping. The course will provide you with the tools and processes and a proven methodology for identifying your current ,"<p>This is where the description of this course is displayed. Change this information by editing the details for this course from within the Management Platform. During this course we will cover; Course Objective 1 Course Objective 2 Course Objective 3 Course Objective 4 ...</p>
+<p>&nbsp;</p>
+<h1><strong>PREREQUISITES</strong> Add information about course prerequisites here such as previous experience, level of subject knowledge, or list specific courses that must have been completed before attending this course.</h1>
+<p><strong>TARGET AUDIENCE</strong> This is where content about the target audience for the course is displayed. You can also add other sections to this page such as Learning Objectives, Outcomes, and Programme Structure. ?</p>
+<ul>
+<li><span style=""font-size: small;""><span style=""color: #993366;"">Detail</span> 1</span></li>
+<li><span style=""font-size: small;"">Detail 2</span></li>
+<li><span style=""font-size: small;"">Detail 3</span></li>
+</ul>
+<div><span style=""font-size: small;""><img title=""Laughing"" src=""http://coursefinderdemo.biz/includes/tiny_mce/plugins/emotions/img/smiley-laughing.gif"" alt=""Laughing"" border=""0"" /></span></div>
+<div>
+<table border=""0"">
+<tbody>
+<tr>
+<td>Test 1</td>
+<td>Test 2</td>
+</tr>
+<tr>
+<td>Test 3</td>
+<td>Test 4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div><img src=""http://coursefinderdemo.biz/custom/domain_1/image_files/1_profilepic.png"" alt="""" width=""282"" height=""282"" /></div>",0000-00-00 0:00:00,0000-00-00 0:00:00,,,,,,,sponsor@coursefinderdemo.biz,,2,,,Professional Development,T,2 hours,Y,,,,,,,2 sessions,Accounting & Finance
+,Neeraj Test,Lucknow,sdfsd,"<p>test desc</p>
+<p>df</p>
+<p>df</p>
+<p>df</p>
+<p>df</p>
+<p>df</p>",0000-00-00 0:00:00,0000-00-00 0:00:00,India,India,226022,,,,nneeraj2007@rediffmail.com,NULL,NULL,,,Continuing Education,F,2 days,N,NULL,NULL,NULL,NULL,NULL,NULL,NULL,Handworks
+,testingpks,Lucknow,dfgdfgdfgfdg,<p>dfgfdgdfg</p>,0000-00-00 0:00:00,0000-00-00 0:00:01,lucknow,lucknow,204556,http://demo.learningsource.com.au/courses/9157-creating-a-marketing-plan,,,pksmedma@gmail.com,NEERAJC,56,Y,test,Short course,F,1 day,Y,,<p>tes</p>,Neeraj,Btec,<p>esx</p>,<p>details</p>,neeraj,Information Technology; Textiles
+,Ideas to Ignite Your Business,Auckland City,This Short Course is aimed directly at enabling you or your organisation to understand and practise the implementation of process mapping. The course will provide you with the tools and processes and a proven methodology for identifying your current ,"<p>This is where the description of this course is displayed. Change this information by editing the details for this course from within the Management Platform.</p>
+<p>During this course we will cover;</p>
+<ul>
+<li>Course Objective 1</li>
+<li>Course Objective&nbsp;2</li>
+<li>Course Objective 3</li>
+<li>Course Objective 4</li>
+<li>...</li>
+</ul>",0000-00-00 0:00:00,0000-00-00 0:00:00,,,,,,,abc@example.com,IDEA-1,2,Y,Early bird discounts available if you register before 5 days,Short course,F,4 months,Y,<p>you need to have basic idea of the fundamentals of business management</p>,,mark taylor,BED,<p>Experience working across different sectors in management</p>,<p>saasdfasf</p>,"One session, 4 hours.
+Course available on every monday of the week",Sewing; Accounting
+,Business Skills for New Managers,Auckland City,"Most strategic planning processes work from today forward not from the future back - implicitly assuming, whatever the evidence to the contrary, that the future will be more or less like the present","<p>This is where the description of this course is displayed. Change this information by editing the details for this course from within the Management Platform.</p>
+<p>During this course we will cover;</p>
+<ul>
+<li>Course Objective 1</li>
+<li>Course Objective&nbsp;2</li>
+<li>Course Objective 3</li>
+<li>Course Objective 4</li>
+<li>...</li>
+</ul>",0000-00-00 0:00:00,0000-00-00 0:00:00,72,Nelson street,1010,,,,support@coursefinderdemo.biz,BSNM123,2,Y,membership discounts available ,Professional Development,T,4 months,Y,"<p><span>Add information about course prerequisites here such as previous experience, level of subject knowledge, or list specific courses that must have been completed before attending this course.</span></p>",,,,,,One day event,Bookkeeping; Accounting
+,Course on demand,Christchurch,"The material covered in the seminar will be state-of-the-art' project management practice and theory, as used by the Project Management Institute. The seminar will cover project management theory using an interactive approach including case studies, ","<p>his is where the description of this course is displayed. Change this information by editing the details for this course from within the Management Platform.</p>
+<p>During this course we will cover;</p>
+<ul>
+<li>Course Objective 1</li>
+<li>Course Objective&nbsp;2</li>
+<li>Course Objective 3</li>
+<li>Course Objective 4</li>
+</ul>",0000-00-00 0:00:00,0000-00-00 0:00:00,,,,,,,coursefinderdemo@example.com,COUD,3,Y,Membership discounts available,Industry Training,T,30 hours,Y,,,Robert taylor,,,,available as requested by the organisation,Accounting
+,Max test,0,sd,<p>ds</p>,0000-00-00 0:00:00,0000-00-00 0:00:00,India,India,226022,,,,nneeraj2007@rediffmail.com,Max,12,Y,ddd,Continuing Education,T,3 months,Y,<p>ds</p>,<p>sd</p>,sd,ds,,<p>sd</p>,d,Textiles
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

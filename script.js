@@ -21,6 +21,9 @@ function validate_form_step_2(){
         for (var j = 0; j < columnKey.length; j++) {
             var e = document.getElementById(columnKey[j]);
             var idVal = e.options[e.selectedIndex].value, idText = e.options[e.selectedIndex].text;
+            if (idVal == '') {
+                continue;
+            }
             if (!i && $.inArray(idText, selectedOptions) === -1) {
                 selectedOptions.push(idText);
             } else if (!i && $.inArray(idText, twiceSelected) === -1){

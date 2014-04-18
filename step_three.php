@@ -88,6 +88,7 @@ function step3($matching)
                 $errorMessage = $error_messages['list']['message'];
                 $errorMessage = str_replace('{column}', $csv_column_name[$column], $errorMessage);
                 $errorMessage = str_replace('{row}', $rows, $errorMessage);
+                $errorMessage = str_replace('{format}', str_replace('"', '', $filterArray[1]), $errorMessage);
             }
         }
         if ($errorMessage !== '') {
@@ -128,9 +129,9 @@ function step3($matching)
     //Course Duration Validation End
 
     if ($errorFound) {
-//        step2($messages, $matching);
+        step2($messages, $matching);
 //        $db->debug($messages);
-//        return;
+        return;
     }
     /*****************************************************************************/
     /******************************Validation End*********************************/
