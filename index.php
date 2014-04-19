@@ -20,9 +20,9 @@
     <link rel="stylesheet" type="text/css" href="css/ie.css"/><![endif]-->
 
 </head>
+<!--Header ENDS-->
 
 <body>
-
 <div id="hld">
     <div class="wrapper">        <!-- wrapper begins -->
         <?php include_once 'courseImporter.php' ?>
@@ -30,7 +30,6 @@
     <!-- wrapper ends -->
 </div>
 <!-- #hld ends -->
-
 <!--[if IE]>
 <script type="text/javascript" src="js/excanvas.js"></script><![endif]-->
 <script type="text/javascript" src="script.js"></script>
@@ -47,6 +46,8 @@
 <script type="text/javascript" src="js/ajaxupload.js"></script>
 <script type="text/javascript" src="js/jquery.pngfix.js"></script>
 <script type="text/javascript" src="js/custom.js"></script>
-
 </body>
+
+<!--Footer Starts-->
 </html>
+<!--Footer Starts-->
