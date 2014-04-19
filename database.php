@@ -81,9 +81,7 @@ class db_orm
         }
         $query .= ")";
 
-        print_r($query);
-        $stmt = $this->connection->query($query);
-        var_dump($stmt);
+        return $this->connection->query($query);
     }
 
     public function fetch_table($table)
@@ -117,6 +115,10 @@ class db_helper extends db_orm
     {
         global $automatic_values;
         global $default_values;
+        $return = array(
+            'success_count' => 0,
+            'failed_rows' => array(),
+        );
 
         foreach ($data_file as $row_key => $each_row) {
             $insert_row = $automatic_values;
@@ -139,7 +141,16 @@ class db_helper extends db_orm
                         }
                     }
                 } else if ($matching[$key] == 'course_duration') {
-                    list($insert_row['course_duration_no'], $insert_row['course_duration_hour']) = explode(' ', $value);
+                    list($insert_row['course_duration_no'], $suffix) = explode(' ', $value);
+                    if ($suffix == 'day' || $suffix == 'days') {
+                        $insert_row['course_duration_day'] = 1;
+                    } else if ($suffix == 'month' || $suffix == 'months') {
+                        $insert_row['course_duration_month'] = 1;
+                    } else if ($suffix == 'hour' || $suffix == 'hours') {
+                        $insert_row['course_duration_hour'] = 1;
+                    } else if ($suffix == 'year' || $suffix == 'years') {
+                        $insert_row['course_duration_year'] = 1;
+                    }
                 } else if ($matching[$key] == 'location_4') {
                     list($insert_row['location_4'], $insert_row['location_2']) = $this->getLocationID($value);
                     $region = $this->getRegionName($insert_row['location_2']);
@@ -168,14 +179,35 @@ class db_helper extends db_orm
                 $insert_row['end_time'] = $default_values['end_time'];
             }
             $insert_row['friendly_url'] = str_replace(" ", "-", strtolower($insert_row['title'])) . "-" . time();
-            $insert_row['fulltextsearch_keyword'] = "Title: {$insert_row['title']}, Description: {$insert_row['description']}";
-            $insert_row['fulltextsearch_where'] = "Location: {$insert_row['location']}, Address: {$insert_row['address']}, Zip: {$insert_row['zip_code']}, Region: $region, City: $city.";
-            //TODO: place the lat/lon here
-            $insert_row['latitude'] = 12.35;
-            $insert_row['longitude'] = 35.55;
-            $this->insert('event', array_keys($insert_row), $insert_row);
-            break;
+            $insert_row['fulltextsearch_keyword'] = "{$insert_row['title']} {$insert_row['description']}";
+            $insert_row['fulltextsearch_where'] = "{$insert_row['location']} {$insert_row['address']} {$insert_row['zip_code']} $region $city";
+            //Get the lat/lon here
+            $latitude_longitude = $this->getLongLatByAddress($insert_row['fulltextsearch_where']);
+            $insert_row['latitude'] = $latitude_longitude['latitude'];
+            $insert_row['longitude'] = $latitude_longitude['longitude'];
+            if ($this->insert('event', array_keys($insert_row), $insert_row)) {
+                $return['success_count']++;
+            } else {
+                $return['failed_rows'][] = $row_key + 1;
+            }
         }
+
+        return $return;
+    }
+
+    public function getLongLatByAddress($address)
+    {
+        $return = array(
+            'latitude' => 0.0,
+            'longitude' => 0.0,
+        );
+        $prepAddr = str_replace(' ', '+', $address);
+        $geocode = file_get_contents('http://maps.google.com/maps/api/geocode/json?address=' . $prepAddr . '&sensor=false');
+        $output = json_decode($geocode);
+        $return['latitude'] = $output->results[0]->geometry->location->lat;
+        $return['longitude'] = $output->results[0]->geometry->location->lng;
+
+        return $return;
     }
 }
 

@@ -1,5 +1,5 @@
-discount_id,title,location_4,description,long_description,start_date,end_date,location,address,zip_code,url,contact_name,phone,email,course_code,course_price,course_free,discounts_available,course_type,delivery_method,course_duration,private_course,pre_requisites,testimonials,presenter_name,presenter_qualifications,presenter_experience,presenter_details,schedule_description,categories
-,Influencing Senior Management,Lucknow,"This course is designed for the new manager. It outlines the various roles and responsibilities of the leader/ manager and offers practical advice, tips and techniques that will assist those embarking on a management career.","his is where the description of this course is displayed. Change this information by editing the details for this course from within the Management Platform.
+"discount_id","title","location_4","description","long_description","start_date","end_date","location","address","zip_code","url","contact_name","phone","email","course_code","course_price","course_free","discounts_available","course_type","delivery_method","course_duration","private_course","pre_requisites","testimonials","presenter_name","presenter_qualifications","presenter_experience","presenter_details","schedule_description","categories"
+"","Influencing Senior Management","Lucknow","This course is designed for the new manager. It outlines the various roles and responsibilities of the leader/ manager and offers practical advice, tips and techniques that will assist those embarking on a management career.","his is where the description of this course is displayed. Change this information by editing the details for this course from within the Management Platform.
 
 During this course we will cover;
 
@@ -7,8 +7,8 @@ Course Objective 1
 Course Objective 2
 Course Objective 3
 Course Objective 4
-...",0000-00-00 0:00:00,0000-00-00 0:00:00,,,,,,,test@example.com,NULL,NULL,,,Professional Development,at a venue,2 hours,N,NULL,NULL,NULL,NULL,NULL,NULL,NULL,Arts &amp; Crafts; Textiles
-,Motivation and Leadership,Auckland City,This Short Course is aimed directly at enabling you or your organisation to understand and practise the implementation of process mapping. The course will provide you with the tools and processes and a proven methodology for identifying your current,"&lt;p&gt;This is where the description of this course is displayed. Change this information by editing the details for this course from within the Management Platform. During this course we will cover; Course Objective 1 Course Objective 2 Course Objective 3 Course Objective 4 ...&lt;/p&gt;
+...","0000-00-00 0:00:00","0000-00-00 0:00:00","","","","","","","test@example.com","NULL","NULL","","","Professional Development","at a venue","2 hours","N","NULL","NULL","NULL","NULL","NULL","NULL","NULL","Arts &amp; Crafts; Textiles"
+"","Motivation and Leadership","Auckland City","This Short Course is aimed directly at enabling you or your organisation to understand and practise the implementation of process mapping. The course will provide you with the tools and processes and a proven methodology for identifying your current","&lt;p&gt;This is where the description of this course is displayed. Change this information by editing the details for this course from within the Management Platform. During this course we will cover; Course Objective 1 Course Objective 2 Course Objective 3 Course Objective 4 ...&lt;/p&gt;
 &lt;p&gt;&nbsp;&lt;/p&gt;
 &lt;h1&gt;&lt;strong&gt;PREREQUISITES&lt;/strong&gt; Add information about course prerequisites here such as previous experience, level of subject knowledge, or list specific courses that must have been completed before attending this course.&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;TARGET AUDIENCE&lt;/strong&gt; This is where content about the target audience for the course is displayed. You can also add other sections to this page such as Learning Objectives, Outcomes, and Programme Structure. ?&lt;/p&gt;
@@ -32,15 +32,15 @@ Course Objective 4
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-&lt;div&gt;&lt;img src=&quot;http://coursefinderdemo.biz/custom/domain_1/image_files/1_profilepic.png&quot; alt=&quot;&quot; width=&quot;282&quot; height=&quot;282&quot; /&gt;&lt;/div&gt;",0000-00-00 0:00:00,0000-00-00 0:00:00,,,,,,,sponsor@coursefinderdemo.biz,,2,,,Professional Development,at a venue,2 hours,Y,,,,,,,2 sessions,Accounting &amp; Finance
-,Neeraj Test,Lucknow,sdfsd,"&lt;p&gt;test desc&lt;/p&gt;
+&lt;div&gt;&lt;img src=&quot;http://coursefinderdemo.biz/custom/domain_1/image_files/1_profilepic.png&quot; alt=&quot;&quot; width=&quot;282&quot; height=&quot;282&quot; /&gt;&lt;/div&gt;","0000-00-00 0:00:00","0000-00-00 0:00:00","","","","","","","sponsor@coursefinderdemo.biz","","2","","","Professional Development","at a venue","2 hours","Y","","","","","","","2 sessions","Accounting &amp; Finance"
+"","Neeraj Test","Lucknow","sdfsd","&lt;p&gt;test desc&lt;/p&gt;
 &lt;p&gt;df&lt;/p&gt;
 &lt;p&gt;df&lt;/p&gt;
 &lt;p&gt;df&lt;/p&gt;
 &lt;p&gt;df&lt;/p&gt;
-&lt;p&gt;df&lt;/p&gt;",0000-00-00 0:00:00,0000-00-00 0:00:00,India,India,226022,,,,nneeraj2007@rediffmail.com,NULL,NULL,,,Continuing Education,at a venue,2 days,N,NULL,NULL,NULL,NULL,NULL,NULL,NULL,Handworks
-,testingpks,Lucknow,dfgdfgdfgfdg,&lt;p&gt;dfgfdgdfg&lt;/p&gt;,0000-00-00 0:00:00,0000-00-00 0:00:01,lucknow,lucknow,204556,http://demo.learningsource.com.au/courses/9157-creating-a-marketing-plan,,,pksmedma@gmail.com,NEERAJC,56,Y,test,Short course,online,1 day,Y,,&lt;p&gt;tes&lt;/p&gt;,Neeraj,Btec,&lt;p&gt;esx&lt;/p&gt;,&lt;p&gt;details&lt;/p&gt;,neeraj,Information Technology; Textiles
-,Ideas to Ignite Your Business,Auckland City,This Short Course is aimed directly at enabling you or your organisation to understand and practise the implementation of process mapping. The course will provide you with the tools and processes and a proven methodology for identifying your current,"&lt;p&gt;This is where the description of this course is displayed. Change this information by editing the details for this course from within the Management Platform.&lt;/p&gt;
+&lt;p&gt;df&lt;/p&gt;","0000-00-00 0:00:00","0000-00-00 0:00:00","India","India","226022","","","","nneeraj2007@rediffmail.com","NULL","NULL","","","Continuing Education","at a venue","2 days","N","NULL","NULL","NULL","NULL","NULL","NULL","NULL","Handworks"
+"","testingpks","Lucknow","dfgdfgdfgfdg","&lt;p&gt;dfgfdgdfg&lt;/p&gt;","0000-00-00 0:00:00","0000-00-00 0:00:01","lucknow","lucknow","204556","http://demo.learningsource.com.au/courses/9157-creating-a-marketing-plan","","","pksmedma@gmail.com","NEERAJC","56","Y","test","Short course","online","1 day","Y","","&lt;p&gt;tes&lt;/p&gt;","Neeraj","Btec","&lt;p&gt;esx&lt;/p&gt;","&lt;p&gt;details&lt;/p&gt;","neeraj","Information Technology; Textiles"
+"","Ideas to Ignite Your Business","Auckland City","This Short Course is aimed directly at enabling you or your organisation to understand and practise the implementation of process mapping. The course will provide you with the tools and processes and a proven methodology for identifying your current","&lt;p&gt;This is where the description of this course is displayed. Change this information by editing the details for this course from within the Management Platform.&lt;/p&gt;
 &lt;p&gt;During this course we will cover;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Course Objective 1&lt;/li&gt;
@@ -48,9 +48,9 @@ Course Objective 4
 &lt;li&gt;Course Objective 3&lt;/li&gt;
 &lt;li&gt;Course Objective 4&lt;/li&gt;
 &lt;li&gt;...&lt;/li&gt;
-&lt;/ul&gt;",0000-00-00 0:00:00,0000-00-00 0:00:00,,,,,,,abc@example.com,IDEA-1,2,Y,Early bird discounts available if you register before 5 days,Short course,online,4 months,Y,&lt;p&gt;you need to have basic idea of the fundamentals of business management&lt;/p&gt;,,mark taylor,BED,&lt;p&gt;Experience working across different sectors in management&lt;/p&gt;,&lt;p&gt;saasdfasf&lt;/p&gt;,"One session, 4 hours.
-Course available on every monday of the week",Sewing; Accounting
-,Business Skills for New Managers,Auckland City,"Most strategic planning processes work from today forward not from the future back - implicitly assuming, whatever the evidence to the contrary, that the future will be more or less like the present","&lt;p&gt;This is where the description of this course is displayed. Change this information by editing the details for this course from within the Management Platform.&lt;/p&gt;
+&lt;/ul&gt;","0000-00-00 0:00:00","0000-00-00 0:00:00","","","","","","","abc@example.com","IDEA-1","2","Y","Early bird discounts available if you register before 5 days","Short course","online","4 months","Y","&lt;p&gt;you need to have basic idea of the fundamentals of business management&lt;/p&gt;","","mark taylor","BED","&lt;p&gt;Experience working across different sectors in management&lt;/p&gt;","&lt;p&gt;saasdfasf&lt;/p&gt;","One session, 4 hours.
+Course available on every monday of the week","Sewing; Accounting"
+"","Business Skills for New Managers","Auckland City","Most strategic planning processes work from today forward not from the future back - implicitly assuming, whatever the evidence to the contrary, that the future will be more or less like the present","&lt;p&gt;This is where the description of this course is displayed. Change this information by editing the details for this course from within the Management Platform.&lt;/p&gt;
 &lt;p&gt;During this course we will cover;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Course Objective 1&lt;/li&gt;
@@ -58,13 +58,13 @@ Course available on every monday of the week",Sewing; Accounting
 &lt;li&gt;Course Objective 3&lt;/li&gt;
 &lt;li&gt;Course Objective 4&lt;/li&gt;
 &lt;li&gt;...&lt;/li&gt;
-&lt;/ul&gt;",0000-00-00 0:00:00,0000-00-00 0:00:00,72,Nelson street,1010,,,,support@coursefinderdemo.biz,BSNM123,2,Y,membership discounts available,Professional Development,at a venue,4 months,Y,"&lt;p&gt;&lt;span&gt;Add information about course prerequisites here such as previous experience, level of subject knowledge, or list specific courses that must have been completed before attending this course.&lt;/span&gt;&lt;/p&gt;",,,,,,One day event,Bookkeeping; Accounting
-,Course on demand,Christchurch,"The material covered in the seminar will be state-of-the-art' project management practice and theory, as used by the Project Management Institute. The seminar will cover project management theory using an interactive approach including case studies,","&lt;p&gt;his is where the description of this course is displayed. Change this information by editing the details for this course from within the Management Platform.&lt;/p&gt;
+&lt;/ul&gt;","0000-00-00 0:00:00","0000-00-00 0:00:00","72","Nelson street","1010","","","","support@coursefinderdemo.biz","BSNM123","2","Y","membership discounts available","Professional Development","at a venue","4 months","Y","&lt;p&gt;&lt;span&gt;Add information about course prerequisites here such as previous experience, level of subject knowledge, or list specific courses that must have been completed before attending this course.&lt;/span&gt;&lt;/p&gt;","","","","","","One day event","Bookkeeping; Accounting"
+"","Course on demand","Christchurch","The material covered in the seminar will be state-of-the-art' project management practice and theory, as used by the Project Management Institute. The seminar will cover project management theory using an interactive approach including case studies,","&lt;p&gt;his is where the description of this course is displayed. Change this information by editing the details for this course from within the Management Platform.&lt;/p&gt;
 &lt;p&gt;During this course we will cover;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Course Objective 1&lt;/li&gt;
 &lt;li&gt;Course Objective&nbsp;2&lt;/li&gt;
 &lt;li&gt;Course Objective 3&lt;/li&gt;
 &lt;li&gt;Course Objective 4&lt;/li&gt;
-&lt;/ul&gt;",0000-00-00 0:00:00,0000-00-00 0:00:00,,,,,,,coursefinderdemo@example.com,COUD,3,Y,Membership discounts available,Industry Training,at a venue,30 hours,Y,,,Robert taylor,,,,available as requested by the organisation,Accounting
-,Max test,Lucknow,sd,&lt;p&gt;ds&lt;/p&gt;,0000-00-00 0:00:00,0000-00-00 0:00:00,India,India,226022,,,,nneeraj2007@rediffmail.com,Max,12,Y,ddd,Continuing Education,at a venue,3 months,Y,&lt;p&gt;ds&lt;/p&gt;,&lt;p&gt;sd&lt;/p&gt;,sd,ds,,&lt;p&gt;sd&lt;/p&gt;,d,Textiles
+&lt;/ul&gt;","0000-00-00 0:00:00","0000-00-00 0:00:00","","","","","","","coursefinderdemo@example.com","COUD","3","Y","Membership discounts available","Industry Training","at a venue","30 hours","Y","","","Robert taylor","","","","available as requested by the organisation","Accounting"
+"","Max test","Lucknow","sd","&lt;p&gt;ds&lt;/p&gt;","0000-00-00 0:00:00","0000-00-00 0:00:00","India","India","226022","","","","nneeraj2007@rediffmail.com","Max","12","Y","ddd","Continuing Education","at a venue","3 months","Y","&lt;p&gt;ds&lt;/p&gt;","&lt;p&gt;sd&lt;/p&gt;","sd","ds","","&lt;p&gt;sd&lt;/p&gt;","d","Textiles"

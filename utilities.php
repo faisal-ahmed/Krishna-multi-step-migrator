@@ -82,9 +82,7 @@ $filters = array(
     'description' => 'length__500',
     'long_description' => '',
     'start_date_time' => 'datetime__Y-m-d H:i:s',
-    //'start_time' => 'datetime__H:i:s',
     'end_date_time' => 'datetime__Y-m-d H:i:s',
-    //'end_time' => 'datetime__H:i:s',
     'location' => '',
     'address' => '',
     'zip_code' => 'length__6',
@@ -150,5 +148,13 @@ $error_messages = array(
     'course_duration' => array(
         'replace' => 'row',
         'message' => 'Invalid value for Course Duration in rows {row}. Valid number is between 1 to 31 and suffix text are one of the day, days, hour, hours, month, months.',
+    ),
+    'success' => array(
+        'replace' => 'success',
+        'message' => 'The import has been successful for {success} rows.',
+    ),
+    'failed' => array(
+        'replace' => 'row',
+        'message' => 'The import has been failed for rows {row}',
     ),
 );

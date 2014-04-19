@@ -130,7 +130,6 @@ function step3($matching)
 
     if ($errorFound) {
         step2($messages, $matching);
-//        $db->debug($messages);
         return;
     }
     /*****************************************************************************/
@@ -141,5 +140,38 @@ function step3($matching)
     /***************This step is mainly responsible for insert data***************/
     /*****************************************************************************/
 
-    $db->insertEvents($file_data, $matching);
+    $result = $db->insertEvents($file_data, $matching);
+
+    /*****************************************************************************/
+    /*****************************Insertation End*********************************/
+    /*****************************************************************************/
+
+    /*****************************************************************************/
+    /***************************Redirect to Step One******************************/
+    /*****************************************************************************/
+
+    $flag = 1;
+
+    if ($result['success_count'] > 0) {
+        $flag = 0;
+        $errorMessage = $error_messages['success']['message'];
+        $errorMessage = str_replace('{success}', $result['success_count'], $errorMessage);
+        $messages['success'][] = $errorMessage;
+    }
+    if (count($result['failed_rows'])) {
+        $failed_rows = '';
+        foreach ($result['failed_rows'] as $key => $value) {
+            $failed_rows .= ($failed_rows == '') ? $value : ", $value";
+        }
+        $flag = 0;
+        $errorMessage = $error_messages['failed']['message'];
+        $errorMessage = str_replace('{row}', $failed_rows, $errorMessage);
+        $messages['error'][] = $errorMessage;
+    }
+
+    if ($flag) {
+        $messages['error'][] = 'An error occurred while importing your file. Please check your file or try again later.';
+    }
+
+    step1($messages);
 }
