@@ -37,6 +37,8 @@ function step1($messages = null){
               enctype="multipart/form-data" method="post" action="">
             <input type="hidden" name="step" value="step1"/>
             <input type="hidden" id="uploaded_file_name" name="uploaded_file_name" value=""/>
+            <!--<input type="hidden" id="account_id" name="account_id" value="<?php /*echo sess_getAccountIdFromSession(); */?>"/>-->
+            <input type="hidden" id="account_id" name="account_id" value="1"/>
 
             <h3 style="text-decoration: underline;">Step One</h3>
             <div class="message info"><p>Please select Microsoft Excel or CSV type file only.</p></div>

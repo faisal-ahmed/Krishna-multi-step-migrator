@@ -1,6 +1,6 @@
 <?php
 
-function step3($matching)
+function step3($matching, $file_name)
 {
     global $required;
     global $filters;
@@ -16,7 +16,7 @@ function step3($matching)
     $db = new db_helper(); // Database Object
     $apply_filter = new filter(); // Filter Object
     $parser = new CsvConversion(); // File Parsing Object
-    $file_data = $parser->get_converted_file_data(); // User's File Data
+    $file_data = $parser->get_converted_file_data($file_name); // User's File Data
     $csv_column_name = $parser->parse_csv_column('database_column.csv', true); // Database Column Name Visible To User
 
     /*****************************************************************************/
@@ -129,7 +129,7 @@ function step3($matching)
     //Course Duration Validation End
 
     if ($errorFound) {
-        step2($messages, $matching);
+        step2($file_name, $messages, $matching);
         return;
     }
     /*****************************************************************************/

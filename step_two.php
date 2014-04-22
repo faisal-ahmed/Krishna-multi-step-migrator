@@ -1,13 +1,14 @@
 <?php
 
-function step2($messages = array(), $matching = array())
+function step2($file_name, $messages = array(), $matching = array())
 {
     $conversion = new CsvConversion();
-    $uploadedFileColumn = $conversion->parse_csv_column();
-    if ($conversion->count_rows() > MAX_ALLOWED_ROWS_PER_BATCH) {
+    $uploadedFileColumn = $conversion->parse_csv_column($file_name);
+    if ($conversion->count_rows($file_name) > MAX_ALLOWED_ROWS_PER_BATCH) {
         $warning = 'Caution! Your file contains more than ' . MAX_ALLOWED_ROWS_PER_BATCH . ' rows of data. Remember only first 250 rows will be considered as input and the rest will be ignored. To upload more courses, please split your file where each file should not contain more than 250 rows of data. Thanks for your understanding.';
     }
     $csv_column_name = $conversion->parse_csv_column('database_column.csv', true);
+    asort($csv_column_name);
     global $required;
     $mendatoryArray = array();
     $file_column_key = '';
@@ -45,7 +46,8 @@ function step2($messages = array(), $matching = array())
                 <form id="course_import_step_two" name="course_import_step_two"
                       onsubmit="return validate_form_step_2();" method="post" action="">
                     <input type="hidden" name="step" value="step2"/>
-                    <input type="hidden" name="column_matching[account_id]" value="1"/><!--For now hardcoded-->
+                    <input type="hidden" name="file_name" value="<?php echo $file_name; ?>"/>
+                    <input type="hidden" name="column_matching[account_id]" value="<?php echo sess_getAccountIdFromSession(); ?>"/>
 
                     <?php foreach ($uploadedFileColumn as $key => $value) {
                         $file_column_key .= ($file_column_key == '') ? $value : ",$value"; ?>

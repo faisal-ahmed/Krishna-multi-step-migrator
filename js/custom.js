@@ -189,10 +189,12 @@ $(function () {
             name: 'userfile',
             responseType: 'text/html',
             onSubmit: function (file, ext) {
+                var id = $('#account_id').val();
                 if (validateFileExt(ext) == false) {
                     $('.fileupload #uploadmsg').text("File type doesn't match. Please select correct file type first.");
                     return false;
                 }
+                this.setData({user_id: id});
                 $('.submit').addClass('submitActionLoading');
                 $('.submit').attr('disabled', 'true');
                 $('.fileupload #uploadmsg').addClass('loading').text('Uploading...');
@@ -201,8 +203,10 @@ $(function () {
             onComplete: function (file, response) {
                 $('.submit').removeClass('submitActionLoading');
                 $('.submit').removeAttr('disabled');
-                $('#uploaded_file_name').attr('value', file);
-                $('.fileupload #uploadmsg').removeClass('loading').text(response);
+                var response_file_name = response.substr(0, response.indexOf("__"));
+                var response_text = response.substr((response.indexOf("__") + 2));
+                $('#uploaded_file_name').attr('value', response_file_name);
+                $('.fileupload #uploadmsg').removeClass('loading').text(response_text);
                 $('.fileupload .file').removeClass('redBorder');
                 this.enable();
             }

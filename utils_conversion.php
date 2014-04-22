@@ -16,8 +16,8 @@ class CsvConversion
 
     private function create_array_2_csv_local_file(array $csv_array, $fileName = null)
     {
-        if ($fileName === null) {
-            $fileName = 'convertedFile.csv';
+        if ($fileName !== null) {
+            $fileName = 'converted_' . $fileName;
         }
         if (count($csv_array) == 0) {
             return null;
@@ -87,7 +87,7 @@ class CsvConversion
             }
         }
 
-        $this->create_array_2_csv_local_file($csvArray);
+        $this->create_array_2_csv_local_file($csvArray, $filename);
     }
 
     public function convert_to_local_file($filename, $extention)
@@ -96,7 +96,7 @@ class CsvConversion
             $this->convert_excel_to_csv($extention, $filename);
         } else {
             $csv_aray = $this->parse_file_to_array($filename);
-            $this->create_array_2_csv_local_file($csv_aray);
+            $this->create_array_2_csv_local_file($csv_aray, $filename);
         }
     }
 
@@ -148,9 +148,13 @@ class CsvConversion
         return $count;
     }
 
-    public function get_converted_file_data()
+    public function get_converted_file_data($filename = null)
     {
-        $fp = fopen(dirname(__FILE__) . '/uploads/convertedFile.csv', 'r') or die("can't open file");
+        if ($filename == null) {
+            $fp = fopen(dirname(__FILE__) . '/uploads/convertedFile.csv', 'r') or die("can't open file");
+        } else {
+            $fp = fopen(dirname(__FILE__) . '/uploads/' . $filename, 'r') or die("can't open file");
+        }
         $return = array();
 
         $column = array();
@@ -174,9 +178,13 @@ class CsvConversion
         return $return;
     }
 
-    public function getDataOfRows($rows)
+    public function getDataOfRows($rows, $filename = null)
     {
-        $fp = fopen(dirname(__FILE__) . '/uploads/convertedFile.csv', 'r') or die("can't open file");
+        if ($filename == null) {
+            $fp = fopen(dirname(__FILE__) . '/uploads/convertedFile.csv', 'r') or die("can't open file");
+        } else {
+            $fp = fopen(dirname(__FILE__) . '/uploads/' . $filename, 'r') or die("can't open file");
+        }
         $return = array();
 
         $count = 0;
